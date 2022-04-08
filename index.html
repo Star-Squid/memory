@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Wildflower Memory Game</title>
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Corinthia:wght@400;700&family=Mukta:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <script src="https://kit.fontawesome.com/2a2cd0823a.js" crossorigin="anonymous"></script>
+
+    <!-- animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- jQuery and own js -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.rawgit.com/robcowie/jquery-stopwatch/master/jquery.stopwatch.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous" defer></script>
+    <script src="index.js" defer></script>
+
+    <!-- bootstrap and own styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="icon" href="favicon.ico">
+
+</head>
+
+<body>
+<div class="body-container">
+
+    <!-- Nav Bar -->
+  <section id="navigation">
+    <nav class="navbar navbar-expand-md navbar-dark  justify-content-left">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><strong><h1>Wildflower Memory</h1></strong></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#wildflowerNavbar" aria-controls="wildflowerNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-left" id="wildflowerNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link link-to-about" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="start-game" href="#">New Game</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  </section>
+
+
+  <!-- About and Game -->
+<section id="game">
+  <div class="container">
+    <div class="row">
+        <!-- About -->
+      <div class="col-lg-4 col-md-4 col-sm-12 hidethis" id="about">
+        <h2>How to play</h2>
+        <ul>
+            <li>Click "New Game" to begin</li>
+            <li>Click two of the game tiles to reveal either flowers or leaves, try to memorize their position</li>
+            <li>Choosing two tiles per round, try to match the correct leaf and flower</li>
+            <li>Reveal a matching pair and it will not be hidden again - you are one step closer to finishing</li>
+            <li>Uncovering all six matching pairs ends the game and stops the timer. Restart by clicking "New Game"</li>
+        </ul>
+
+        <h2>About</h2>
+        <p>This game is a learning project made by <a href="https://star-squid.github.io">Barbara Malta</a>.<br>
+            It uses Bootstrap, JavaScript and jQuery; there are some css and jQuery animation effects.<br>
+            It also features original art by the author.<br>
+            Last updated 08.03.2022</p>
+      </div>
+
+      <!-- TIMER AND TILES -->
+      <div class="col-lg-8 col-md-8 col-sm-12 game-box animate__animated animate__fadeInLeft">
+
+        <!-- status message and tiles -->
+        <div class="win-text invisible">
+            <h2 class="win">Board &nbsp; started!</h2>
+            <p><span id="timer">00:00:00</span></p>
+        </div>
+
+        <div class="tiles">
+            <div class="game-tile showbackface" id="tile-01"><img src="images/pm-1-a.png"></div>
+            <div class="game-tile showbackface" id="tile-02"><img src="images/pm-1-b.png"></div>
+            <div class="game-tile showbackface" id="tile-03"><img src="images/pm-2-a.png"></div>
+            <div class="game-tile showbackface" id="tile-04"><img src="images/pm-2-b.png"></div>
+            <div class="game-tile showbackface" id="tile-05"><img src="images/pm-3-a.png"></div>
+            <div class="game-tile showbackface" id="tile-06"><img src="images/pm-3-b.png"></div>
+            <div class="game-tile showbackface" id="tile-07"><img src="images/pm-4-a.png"></div>
+            <div class="game-tile showbackface" id="tile-08"><img src="images/pm-4-b.png"></div>
+            <div class="game-tile showbackface" id="tile-09"><img src="images/pm-5-a.png"></div>
+            <div class="game-tile showbackface" id="tile-10"><img src="images/pm-5-b.png"></div>
+            <div class="game-tile showbackface" id="tile-11"><img src="images/pm-6-a.png"></div>
+            <div class="game-tile showbackface" id="tile-12"><img src="images/pm-6-b.png"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+</footer>
+</div>
+
+</body>
+</html>
