@@ -75,9 +75,12 @@ header{
     margin: 2rem 0 0;
 }
 
+details{
+    margin: 1rem 0 0;
+}
+
 footer{
     margin: 0 0 2rem;
-
 }
 
 main{
@@ -152,13 +155,6 @@ main{
     100% {transform: rotate(0deg);}
 }
 
-.dead{
-    pointer-events: none;
-}
-
-.hidethis{
-    visibility: hidden;
-}
 
 #about{
     padding: 3vh 5vw 3vh 5vw;
@@ -200,3 +196,14 @@ button {
     background: var(--verydark);
   }
 
+.dead{
+    pointer-events: none;
+}
+
+.hidethis{
+    visibility: hidden;
+}
+
+.removethis{
+    display: none;
+}

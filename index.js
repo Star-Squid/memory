@@ -51,6 +51,13 @@ $("#start-game").mousedown(function() {
     $(".game-tile").removeClass("dead").addClass("clicky").addClass("showbackface");
     $(".win").text("Board " + " " + " started!");
 
+    $(".wild-carrot").addClass("removethis");
+    $(".chicory").addClass("removethis");
+    $(".bluebell").addClass("removethis");
+    $(".goatsbeard").addClass("removethis");
+    $(".teasel").addClass("removethis");
+    $(".forget-me-not").addClass("removethis");
+
     let revealedTiles = 0;
     let trackMoves = 0;
     let pairsFound = 0;
@@ -67,7 +74,7 @@ $("#start-game").mousedown(function() {
     $(".clicky").mousedown(function() {
         revealedTiles ++;
         trackMoves ++;
-        console.log("revealed tiles: " + revealedTiles);
+        //console.log("revealed tiles: " + revealedTiles);
         $(this).removeClass("showbackface")
         let currentTile = this;
 
@@ -76,22 +83,45 @@ $("#start-game").mousedown(function() {
             firstTileClicked = $(this).html();
             firstTileImage = getImgNoByHTML(firstTileClicked);
             firstTileId = currentTile.id;
-            console.log(firstTileId + " => " + firstTileClicked + " => " + firstTileImage);
+            //console.log(firstTileId + " => " + firstTileClicked + " => " + firstTileImage);
 
         } else if (revealedTiles === 2){
             secondTileClicked = $(this).html();
             secondTileImage = getImgNoByHTML(secondTileClicked);
             secondTileId = currentTile.id;
-            console.log(secondTileId + " => " + secondTileClicked + " => " + secondTileImage);
+            //console.log(secondTileId + " => " + secondTileClicked + " => " + secondTileImage);
             revealedTiles = 0;
 
 
             //do the tiles match?
             if (firstTileImage === secondTileImage) {
                 pairsFound++;
-                console.log("Pairs found: " + pairsFound);
+                //console.log("Pairs found: " + pairsFound);
                 $("#" + firstTileId).animate({opacity: '0.3'}).animate({opacity: '1'}).removeClass().addClass("dead");
                 $("#" + secondTileId).animate({opacity: '0.3'}).animate({opacity: '1'}).removeClass().addClass("dead");
+
+                //which plant?
+                console.log(firstTileImage)
+                switch (firstTileImage) {
+                    case "01": $(".wild-carrot").removeClass("removethis")
+                        $(".win").text("You discovered wild carrot!")
+                        break;
+                    case "02": $(".chicory").removeClass("removethis")
+                        $(".win").text("You discovered chicory!")
+                        break;
+                    case "03": $(".bluebell").removeClass("removethis")
+                        $(".win").text("You discovered bluebell!")
+                        break;
+                    case "04": $(".goatsbeard").removeClass("removethis")
+                        $(".win").text("You discovered goatsbeard!")
+                        break;
+                    case "05": $(".teasel").removeClass("removethis")
+                        $(".win").text("You discovered teasel!")
+                        break;
+                    case "06": $(".forget-me-not").removeClass("removethis")
+                        $(".win").text("You discovered forget-me-not!")
+                        break;
+                }
 
                 //6 pairs? win!
                 if (pairsFound >= 6){
