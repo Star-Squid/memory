@@ -30,27 +30,23 @@ function assignGamePieces(spaces, pieces){
     }
 };
 
-//display or hide "about"
-$(".link-to-about").mousedown(function() {
-    //$("#about").toggleClass("hidethis");    
-    $("#about").slideToggle("slow"); 
-    //$("#about").toggle("slide", { direction: "left" }, 20000);   
-});
-
 //handle timer
- (function($){
-         $("#timer, #start-game").stopwatch().click(function(){ 
-             $("#timer").stopwatch("toggle");
-         });
- })(jQuery);
+(function($){
+    $("#timer").stopwatch().click(function(){ 
+        $("#timer").stopwatch("toggle");
+    });
+})(jQuery);
 
-//CLICK "NEW GAME" TO START GAME
+//CLICK TO START GAME
 $("#start-game").mousedown(function() {
     
     shuffleArray(gamePieces);
     assignGamePieces(gameSpaces, gamePieces);
+
+    $("#timer").stopwatch("toggle");
     
-    $(".win-text").removeClass("invisible");
+    $(".cover-tiles").addClass("hidethis");
+    $(".win-text").removeClass("hidethis");
     $(".dead").addClass("game-tile");
     $(".game-tile").removeClass("dead").addClass("clicky").addClass("showbackface");
     $(".win").text("Board " + " " + " started!");
@@ -101,6 +97,10 @@ $("#start-game").mousedown(function() {
                 if (pairsFound >= 6){
                     $(".win").text("Board finished in " + " " + trackMoves + " " + " moves!");
                     $("#timer").stopwatch("stop")
+
+                    setTimeout(function() {
+                        $(".cover-tiles").removeClass("hidethis");
+                    }, 3000);
                 } 
 
             } else {
@@ -114,3 +114,46 @@ $("#start-game").mousedown(function() {
         } else {console.log("The pairs counter doesn't work correctly")}
     });
 });
+
+//display or hide "about"
+const dialog = document.querySelector("dialog");
+const openDialogBtn = document.getElementById("link-to-about");
+const closeDialogBtn = document.getElementById("close_dialog");
+
+const elements = dialog.querySelectorAll(
+  'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
+);
+const firstElement = elements[0];
+const lastElement = elements[elements.length - 1];
+
+const trapFocus = (e) => {
+  if (e.key === "Tab") {
+    const tabForwards = !e.shiftKey && document.activeElement === lastElement;
+    const tabBackwards = e.shiftKey && document.activeElement === firstElement;
+    if (tabForwards) {
+      // only TAB is pressed, not SHIFT simultaneously
+      // Prevent default behavior of keydown on TAB (i.e. focus next element)
+      e.preventDefault();
+      firstElement.focus();
+    } else if (tabBackwards) {
+      // TAB and SHIFT are pressed simultaneously
+      e.preventDefault();
+      lastElement.focus();
+    }
+  }
+};
+
+const openDialog = () => {
+  dialog.showModal();
+  dialog.addEventListener("keydown", trapFocus);
+};
+
+const closeDialog = (e) => {
+  e.preventDefault();
+  dialog.close();
+  dialog.removeEventListener("keydown", trapFocus);
+  openDialogBtn.focus();
+};
+
+openDialogBtn.addEventListener("click", openDialog);
+closeDialogBtn.addEventListener("click", closeDialog);
