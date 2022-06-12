@@ -19,7 +19,7 @@ body{
     background-repeat:  no-repeat;
     background-size: contain; 
     width: 100%;
-    height: 100%;
+    height: 101%;
     overflow-x: hidden;
     
     color: var(--white);
@@ -61,12 +61,15 @@ h2{
   }
 
 .contain-content{
-    max-width: 44rem;
-    min-width: 35rem;
+    width: clamp(28rem, 60vw, 57rem);
 }
 
-header,
-nav,
+
+nav{
+    margin: 0 0 2rem;
+
+}
+
 main {
     margin: 0 0 3rem;
 }
@@ -130,8 +133,11 @@ main{
     background-repeat:  no-repeat;
     background-size: contain; 
 
-    height: 10rem;
-    width: 10rem;
+    /* height: 10rem; */
+    height: clamp(8rem, 23%, 20rem);
+
+    /* width: 10rem; */
+    width: clamp(8rem, 23%, 20rem);
     margin: 5px;
     border-radius: 5px;
     border: solid 3px var(--dark);
