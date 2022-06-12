@@ -37,26 +37,7 @@ function assignGamePieces(spaces, pieces){
     });
 })(jQuery);
 
-//CLICK TO START GAME
-$("#start-game").mousedown(function() {
-    
-    shuffleArray(gamePieces);
-    assignGamePieces(gameSpaces, gamePieces);
 
-    $("#timer").stopwatch("toggle");
-    
-    $(".cover-tiles").addClass("hidethis");
-    $(".win-text").removeClass("hidethis");
-    $(".dead").addClass("game-tile");
-    $(".game-tile").removeClass("dead").addClass("clicky").addClass("showbackface");
-    $(".win").text("Board " + " " + " started!");
-
-    $(".wild-carrot").addClass("removethis");
-    $(".chicory").addClass("removethis");
-    $(".bluebell").addClass("removethis");
-    $(".goatsbeard").addClass("removethis");
-    $(".teasel").addClass("removethis");
-    $(".forget-me-not").addClass("removethis");
 
     let revealedTiles = 0;
     let trackMoves = 0;
@@ -70,8 +51,33 @@ $("#start-game").mousedown(function() {
     let secondTileImage;
     let secondTileId;
 
+//CLICK TO START GAME
+$("#start-game").click(function() {
+    
+    shuffleArray(gamePieces);
+    assignGamePieces(gameSpaces, gamePieces);
+
+    $("#timer").stopwatch("reset");
+    $("#timer").stopwatch("start");
+    
+    $(".cover-tiles").addClass("hidethis");
+    $(".win-text").removeClass("hidethis");
+    $(".dead").addClass("game-tile");
+    $(".game-tile").removeClass("dead").addClass("showbackface").addClass("clicky");
+    $(".win").text("Board " + " " + " started!");
+
+    $("#plant-list").empty();
+
+     revealedTiles = 0;
+     trackMoves = 0;
+     pairsFound = 0;
+
+});
+
+
+
     // CLICK A TILE
-    $(".clicky").mousedown(function() {
+    $(".game-tile").click(function() {
         revealedTiles ++;
         trackMoves ++;
         //console.log("revealed tiles: " + revealedTiles);
@@ -101,25 +107,24 @@ $("#start-game").mousedown(function() {
                 $("#" + secondTileId).animate({opacity: '0.3'}).animate({opacity: '1'}).removeClass().addClass("dead");
 
                 //which plant?
-                console.log(firstTileImage)
-                switch (firstTileImage) {
-                    case "01": $(".wild-carrot").removeClass("removethis")
+                switch (secondTileImage) {
+                    case "01": $("#plant-list").append('<li>wild carrot</li>')
                         $(".win").text("You discovered wild carrot!")
                         break;
-                    case "02": $(".chicory").removeClass("removethis")
+                    case "02": $("#plant-list").append('<li>chicory</li>')
                         $(".win").text("You discovered chicory!")
                         break;
-                    case "03": $(".bluebell").removeClass("removethis")
-                        $(".win").text("You discovered bluebell!")
+                    case "03": $("#plant-list").append('<li>bluebell</li>')
+                        $(".win").text("You discovered bluebells!")
                         break;
-                    case "04": $(".goatsbeard").removeClass("removethis")
+                    case "04": $("#plant-list").append('<li>goatsbeard</li>')
                         $(".win").text("You discovered goatsbeard!")
                         break;
-                    case "05": $(".teasel").removeClass("removethis")
+                    case "05": $("#plant-list").append('<li>teasel</li>')
                         $(".win").text("You discovered teasel!")
                         break;
-                    case "06": $(".forget-me-not").removeClass("removethis")
-                        $(".win").text("You discovered forget-me-not!")
+                    case "06": $("#plant-list").append('<li>forget-me-not</li>')
+                        $(".win").text("You discovered forget-me-nots!")
                         break;
                 }
 
@@ -143,7 +148,6 @@ $("#start-game").mousedown(function() {
 
         } else {console.log("The pairs counter doesn't work correctly")}
     });
-});
 
 //display or hide "about"
 const dialog = document.querySelector("dialog");
